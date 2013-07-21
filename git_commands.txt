@@ -1,0 +1,7 @@
+#Git will see updates in doc/tags 
+#To ignore tags globally run:
+git config --global core.excludesfile ~/.gitignore_global
+
+#then add in ./gitignore_global
+doc/tags 
+
