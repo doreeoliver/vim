@@ -4,8 +4,14 @@ autocmd! bufwritepost .vimrc source %
 "call pathogen#runtime_append_all_bundles()
 
 "suggested use
+" call pathogen#incubate()"
 call pathogen#infect()
+call pathogen#helptags()
 
+" Lusty wants hidden
+set hidden
+
+"fugitive's git status line"
 set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%=%c,%l/%L\ %{fugitive#statusline()}
 
 filetype on
