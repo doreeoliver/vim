@@ -1,9 +1,4 @@
-"" Automatic reloading of .vimrc
-autocmd! bufwritepost .vimrc source %
-
 "call pathogen#runtime_append_all_bundles()
-
-"suggested use
 call pathogen#incubate()
 
 "set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%=%c,%l/%L\ %{fugitive#statusline()}
@@ -15,18 +10,13 @@ syntax on
 " disable auto commenting for all files
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
-" Show whitespace
-" MUST be inserted BEFORE the colorscheme command
-"" autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
-"" au InsertLeave * match ExtraWhitespace /\s\+$/
-
 " notify about unused imports or missing colons
 let g:pyflakes_use_quickfix = 0
 
 " consistency with pep8
 let g:pep8_map='<leader>8'
 
-" Better copy & paste with F2
+" Better copy & paste
 set pastetoggle=<F2>
 set clipboard=unnamed
 
@@ -36,31 +26,9 @@ map <c-k> <c-w>k
 map <c-l> <c-w>l
 map <c-h> <c-w>h
 
-"real programmers don't use TABs but spaces
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-set shiftround
-set expandtab
-
-" Removes highlight of your last search
- noremap <C-h> :nohl<CR>
- vnoremap <C-h> :nohl<CR>
- inoremap <C-h> :nohl<CR>
-
 " Mouse and backspace
 set mouse=a " on OSX press ALT and click
 set bs=2 " make backspace behave like normal again
-
-" Default of SuperTab code complete is tab set to shift tab
-" and shift space tab for backward completion
-let g:SuperTabMappingForward = '<s-tab>'
-let g:SuperTabMappingBackward = '<s-tab-space>'
-
-" Tab completion to enable omni code completion
-au FileType python set omnifunc=pythoncomplete#Complete
-let g:SuperTabDefaultCompletionType = "context"
-set completeopt=menuone,longest,preview
 
 " Rebind <Leader> key
 let mapleader = ","
@@ -74,9 +42,23 @@ map <leader>g :GundoToggle<CR>
 " bind key to NerdTree
 map <leader>n :NERDTreeToggle<CR>
 
+" Tab completion to enable omni code completion
+au FileType python set omnifunc=pythoncomplete#Complete
+let g:SuperTabDefaultCompletionType = "context"
+set completeopt=menuone,longest,preview
+
 " rename and jump to definitions
 map <leader>j :RopeGotoDefinition<CR>
 map <leader>r :RopeRename<CR>
+
+" searching 
+nmap <leader>a <Esc>:Ack!
+
+" Removes highlight of your last search
+noremap <C-n> :nohl<CR>
+vnoremap <C-n> :nohl<CR>
+inoremap <C-n> :nohl<CR>
+"nnoremap <esc> :noh<return><esc>
 
 " Quicksave command
 noremap <C-Z> :update<CR>
@@ -96,6 +78,13 @@ nmap <silent><Leader>tm <Esc>:Pytest method<CR>
 nmap <silent><Leader>tn <Esc>:Pytest next<CR>
 nmap <silent><Leader>tp <Esc>:Pytest previous<CR>
 nmap <silent><Leader>te <Esc>:Pytest error<CR>
+
+"real programmers don't use TABs but spaces
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set shiftround
+set expandtab
 
 " easier moving between tabs
 map <Leader>n <esc>:tabprevious<CR>
@@ -117,7 +106,7 @@ set noswapfile
 vnoremap <Leader>s :sort<CR>
 
 "easier moving of code blocks
-" " Try to go into visual mode (v), select several lines of code here and
+" " Try to go into visual mode (v), thenselect several lines of code here and
 " " then press ``>`` several times.
 vnoremap < <gv " better indentation
 vnoremap > >gv " better indentation
