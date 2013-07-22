@@ -1,14 +1,31 @@
+" Thanks to many of the vim python ide's out there 
+" "Martin Brochhaus
+" "https://github.com/mbrochh/vim-as-a-python-ide/blob/master/.vimrc
+" John Anderson"
+" http://sontek.net/blog/detail/turning-vim-into-a-modern-python-ide
+" http://unlogic.co.uk/posts/vim-python-ide.html
+" http://blog.dispatched.ch/2009/05/24/vim-as-python-ide/"
+" https://github.com/yodiaditya/vim-pydjango"
+
+" Changes other options as side effect"
+set nocompatible
+
 "" Automatic reloading of .vimrc
 autocmd! bufwritepost .vimrc source %
+
+set wildignore=*.swp,*.bak,*.pyc,*.class
 
 "call pathogen#runtime_append_all_bundles()
 
 "suggested use
-" call pathogen#incubate()"
-call pathogen#infect()
-call pathogen#helptags()
+" call pathogen#incubate()
 
-" Lusty wants hidden
+filetype off
+call pathogen#infect()
+" call pathogen#helptags()
+
+" Lusty wants environment sent to hidden - lusty is a file and buffer management
+" hides buffers instead of closing them"
 set hidden
 
 "fugitive's git status line"
@@ -21,6 +38,9 @@ syntax on
 " disable auto commenting for all files
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
+" use pylint as Python's compiler
+autocmd FileType python compiler pylint
+
 " Show whitespace
 " MUST be inserted BEFORE the colorscheme command
 "" autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
@@ -29,14 +49,12 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 " notify about unused imports or missing colons
 let g:pyflakes_use_quickfix = 0
 
-" consistency with pep8
-let g:pep8_map='<leader>8'
-
 " Better copy & paste with F2
 set pastetoggle=<F2>
 set clipboard=unnamed
 
 "map keys for navigation
+let g:BASH_Ctrl_j = 'off'
 map <c-j> <c-w>j
 map <c-k> <c-w>k
 map <c-l> <c-w>l
@@ -68,8 +86,16 @@ au FileType python set omnifunc=pythoncomplete#Complete
 let g:SuperTabDefaultCompletionType = "context"
 set completeopt=menuone,longest,preview
 
+" jedi-vim used for better autocomplete"
+" let g:jedi#related_names_command = \<leader>z"
+" let g:jedi#popup_on_dot = 1
+" let g:jedi#popup_select_first = 0
+
 " Rebind <Leader> key
 let mapleader = ","
+
+" consistency with pep8
+let g:pep8_map='<leader>8'
 
 " Reset binding for TaskList todo list
 map <leader>td <Plug>TaskList
@@ -81,8 +107,11 @@ map <leader>g :GundoToggle<CR>
 map <leader>n :NERDTreeToggle<CR>
 
 " rename and jump to definitions
-map <leader>j :RopeGotoDefinition<CR>
-map <leader>r :RopeRename<CR>
+" map <leader>j :RopeGotoDefinition<CR>
+" map <leader>r :RopeRename<CR>
+
+" ipdb maped to leared key"
+map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
 
 " Quicksave command
 noremap <C-Z> :update<CR>
